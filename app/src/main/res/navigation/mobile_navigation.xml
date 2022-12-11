@@ -20,6 +20,9 @@
             android:id="@+id/action_navigation_category_to_addFoodFragment"
             app:destination="@id/addFoodFragment" />
         <action
+            android:id="@+id/action_navigation_category_to_addMedicineFragment"
+            app:destination="@id/addMedicineFragment" />
+        <action
             android:id="@+id/action_navigation_category_to_addShowerFragment"
             app:destination="@id/addShowerFragment" />
     </fragment>
@@ -50,6 +53,15 @@
         android:label="AddShowerFragment" >
         <action
             android:id="@+id/action_addShowerFragment_to_navigation_category"
+            app:destination="@id/navigation_category" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMedicineFragment"
+        android:name="com.example.petfriends.ui.add_data.add_medicine.AddMedicineFragment"
+        android:label="fragment_add_medicine"
+        tools:layout="@layout/fragment_add_medicine" >
+        <action
+            android:id="@+id/action_addMedicineFragment_to_navigation_category"
             app:destination="@id/navigation_category" />
     </fragment>
 

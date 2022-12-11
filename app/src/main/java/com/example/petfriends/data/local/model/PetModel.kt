@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 //data class PetModel(
 //    var typePet:String? = null
@@ -20,7 +21,6 @@ data class PetModel(
     val petGender: String,
     val petBirthday: String,
     val createdAt: String,
-    val petCreated: Boolean = true
 ) : Parcelable
 
 
@@ -57,6 +57,17 @@ data class PetFoodUpdate(
 )
 
 
+
+
+data class PetMedicine(
+    val petMedicineId: String,
+    val petId: String,
+    val uId: String,
+    val petMedicineName: String,
+    val petMedicineKind: String,
+    val petMedicineDate: Date?,
+    val createdAt: Date?
+)
 
 
 data class ItemList(

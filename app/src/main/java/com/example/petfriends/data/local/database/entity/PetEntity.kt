@@ -45,7 +45,7 @@ data class PetMedicine(
     val petMedicineName: String,
     val petMedicineKind: String,
     val petMedicineDate: Date?,
-//    val createdAt: Date?
+     val createdAt: Date?
 )
 
 @Entity
