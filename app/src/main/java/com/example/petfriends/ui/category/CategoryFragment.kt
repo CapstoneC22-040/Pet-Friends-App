@@ -83,10 +83,10 @@ class CategoryFragment : Fragment() {
                     val typePet = snapshot.child("petJenis").value.toString()
                     val petBirthday = snapshot.child("petBirthday").value.toString()
 
-//                    binding.petName.text = getString(R.string.pet_name_text, name)
-//                    binding.petType.text = getString(R.string.pet_jenis_text,typePet)
-//                    binding.petGender.text = getString(R.string.pet_gender_text,gender)
-//                    binding.petBirthday.text = getString(R.string.pet_birthday_text, petBirthday)
+                    binding.petName.text = getString(R.string.pet_name_text, name)
+                    binding.petType.text = getString(R.string.pet_jenis_text,typePet)
+                    binding.petGender.text = getString(R.string.pet_gender_text,gender)
+                    binding.petBirthday.text = getString(R.string.pet_birthday_text, petBirthday)
 
                     Log.e("TAG","$name")
                     Toast.makeText(requireActivity(),"$name",Toast.LENGTH_SHORT).show()

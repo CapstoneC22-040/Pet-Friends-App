@@ -24,11 +24,11 @@
     <string name="failed_register">Failed register account</string>
     <string name="cont">continue</string>
     <string name="biodata">Biodata</string>
+    <string name="pet_name_text">Nama : %s</string>
+    <string name="pet_jenis_text">Jenis : %s</string>
+    <string name="pet_gender_text">Gender : %s</string>
+    <string name="pet_birthday_text">Birthday : %s</string>
 
-    <string name="pet_name_text">Pet name:</string>
-    <string name="pet_jenis_text">Pet jenis:</string>
-    <string name="pet_gender_text">Pet gender:</string>
-    <string name="pet_birthday_text">Pet birthday:</string>
 
     <string name="success_sign_in">Success sign in</string>
     <string name="failed_sign_in">Failed sign in</string>
@@ -99,5 +99,6 @@
     <string name="error_medicine_name">Medicine name can not be empty!</string>
     <string name="success_add_medicine">Success add medicine!</string>
     <string name="failed_add_medicine">Failed add medicine!</string>
+
 
 </resources>
