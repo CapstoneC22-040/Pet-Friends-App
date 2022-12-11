@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petfriends.R
+import com.example.petfriends.data.local.model.PetMedicineModel
 import com.example.petfriends.data.local.model.PetModel
 import com.example.petfriends.databinding.FragmentAddMedicineBinding
 import com.example.petfriends.utils.DateHelper
@@ -120,7 +121,7 @@ class AddMedicineFragment : Fragment() {
                         edMedicineWeight.error = getString(R.string.error_weight)
                     }
                     else -> {
-                        val petMedicine = PetModel(
+                        val petMedicine = PetMedicineModel(
                             uId,
                             urlPhoto,
                             medicineName,

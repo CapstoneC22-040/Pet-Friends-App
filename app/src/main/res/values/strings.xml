@@ -97,34 +97,7 @@
     <string name="medicine_amount">Enter amount (g)</string>
 
     <string name="error_medicine_name">Medicine name can not be empty!</string>
-    <string name="error_weight">Medicine weight can not be empty!</string>
     <string name="success_add_medicine">Success add medicine!</string>
     <string name="failed_add_medicine">Failed add medicine!</string>
-
-    <string name="add">Add</string>
-
-    <string name="name_string" formatted="true">"Welcome %s,What Type is Your Pet?"</string>
-    <string name="select">Select</string>
-
-    <string name="day">Tuesday</string>
-    <string name="next_button">Next</string>
-    <string name="pet_profile">Pet Profile</string>
-    <string name="pet_name">Pet name</string>
-    <string name="url_photo">url photo</string>
-    <string name="birthday">Birthday</string>
-    <string name="done">Done</string>
-
-    <string name="edit_hours">Edit hours?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="select_day">Select day</string>
-    <string name="save_hours">Save hours?</string>
-    <string name="empty_hours">Enter hours!</string>
-
-    <string name="manage_shower">Manage Shower</string>
-    <string name="water_type">Enter Water Type</string>
-    <string name="error_type">Water Type can not be empty!</string>
-    <string name="success_add_shower">Success add shower!</string>
-    <string name="failed_add_shower">Failed add shower!</string>
 
 </resources>

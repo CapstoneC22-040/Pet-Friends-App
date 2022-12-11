@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
@@ -23,7 +24,18 @@ data class PetModel(
     val createdAt: String,
 ) : Parcelable
 
+data class PetMedicineModel(
+    val uId: String? = null,
+    val urlPhoto: String? = null,
+    val medicineName: String? = null,
+    val medicineWeight: String? = null,
+    val hours: String? = null,
+    val day: String? = null,
+    val date: String? = null,
+    val createdAt: String? = null
+)
 
+@IgnoreExtraProperties
 data class PetFood(
     var uId: String? = null,
     var petFoodId: String? = null,
@@ -38,14 +50,14 @@ data class PetFood(
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
-//            "petFoodId" to petFoodId,
-//            "categoryName" to categoryName,
+            "petFoodId" to petFoodId,
+            "categoryName" to categoryName,
             "foodName" to foodName,
             "foodWeight" to foodWeight,
-//            "hours" to hours,
-//            "day" to day,
-//            "date" to hours,
-//            "createdAt" to createdAt
+            "hours" to hours,
+            "day" to day,
+            "date" to hours,
+            "createdAt" to createdAt
         )
     }
 }

@@ -21,9 +21,11 @@ import com.example.petfriends.ui.adapter.ListItemAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
 import java.util.*
+import kotlin.collections.HashMap
 
 class BookmarkFragment : Fragment() {
 
@@ -54,6 +56,8 @@ class BookmarkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        CalendarUtils.selectedDate = LocalDate.now()
+
+        uDatabase = Firebase.database.reference
 
         itemList = arrayListOf<ItemList>()
 
@@ -120,21 +124,21 @@ class BookmarkFragment : Fragment() {
                         date
                     )
 
+
                     val key = data.petFoodId
                     val uId = data.uId
 
                     val petFoodValue = petFoodUpdate.toMap()
 
                     val childUpdate = hashMapOf<String, Any>(
-                        "/$uId/$key" to petFoodValue
+                        "/PetsFoods/$uId/$key" to petFoodValue
                     )
-
-                    uDatabase = FirebaseDatabase.getInstance().getReference("PetsFoods")
 
                     uDatabase.updateChildren(childUpdate).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "Success")
                             Toast.makeText(context, "Success update data", Toast.LENGTH_SHORT).show()
+                            listItemAdapter.notifyDataSetChanged()
                         }else {
                             Log.d(TAG, "Failed")
                         }
@@ -147,6 +151,7 @@ class BookmarkFragment : Fragment() {
                 .getReference("PetsFoods").child(user?.uid.toString()).child(data.petFoodId.toString())
             dDatabase.removeValue()
             Toast.makeText(context, "Success delete", Toast.LENGTH_SHORT).show()
+            listItemAdapter.notifyDataSetChanged()
         }
 
         dialog.setNeutralButton(getString(R.string.no)){_, _ ->
