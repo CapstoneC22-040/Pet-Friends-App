@@ -3,6 +3,7 @@ package com.example.petfriends.data.local.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
 
 //data class PetModel(
@@ -22,27 +23,47 @@ data class PetModel(
     val petCreated: Boolean = true
 ) : Parcelable
 
-@Parcelize
+
 data class PetFood(
-    var petFoodId: String,
-    val uId: String,
-//    val petId: String,
-    var cattegoryName: String,
-    var name: String,
-    var weight: String,
-    val hours: String,
-    val day: String,
-    val date: String,
-    var createdAt: String
-) : Parcelable
+    var uId: String? = null,
+    var petFoodId: String? = null,
+    var categoryName: String? = null,
+    var foodName: String? = null,
+    var foodWeight: String? = null,
+    val hours: String? = null,
+    val day: String? = null,
+    val date: String? = null,
+    var createdAt: String? = null
+) {
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+//            "petFoodId" to petFoodId,
+//            "categoryName" to categoryName,
+            "foodName" to foodName,
+            "foodWeight" to foodWeight,
+//            "hours" to hours,
+//            "day" to day,
+//            "date" to hours,
+//            "createdAt" to createdAt
+        )
+    }
+}
+
+data class PetFoodUpdate(
+    var foodName: String? = null,
+    var foodWeight: String? = null,
+    val date: String? = null,
+)
+
+
 
 
 data class ItemList(
     val petFoodId: String? = null,
     val date: String? = null,
-    val cattegoryName: String? = null,
-    val name: String? = null,
-    val key: String? = null,
+    val categoryName: String? = null,
+    val foodName: String? = null,
     val uId: String? = null,
-    val weight: String? = null
+    val foodWeight: String? = null
 )

@@ -22,14 +22,17 @@ data class Pet(
 
 @Entity
 data class PetFood(
-    @PrimaryKey(autoGenerate = true)
-    var petFoodId: Int,
+    @PrimaryKey
+    var petFoodId: String,
     var petId: String? = null,
     var uId: String? = null,
     var petFoodName: String? = null,
     var petFoodKind: String? = null,
-    var petFoodWeight: Long = 0,
+    var petFoodWeight: String?= null,
     var petFoodDate: String? = null,
+    val hours: String? = null,
+    val day: String? = null,
+    val date: String? = null,
     var createdAt: String? = null
 )
 
@@ -61,14 +64,13 @@ data class PetVaccine(
 data class PetShower(
     @PrimaryKey
     val petShowerId: String,
-    val petId: String,
     val uId: String,
-    val petShampooName: String,
-    val petShowerDate: String,
+    val manageShower: String,
+    val waterType: String,
+    val hours: String,
     val day: String,
     val date: String,
     val createdAt: String,
-//    val createdAt: Date?
 )
 
 data class UserAndPet(

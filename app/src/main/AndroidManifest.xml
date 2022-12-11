@@ -16,9 +16,6 @@
         android:theme="@style/Theme.PetFriends"
         tools:targetApi="31">
         <activity
-            android:name=".ui.add_data.add_food.AddFoodActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.add_data.add_pet.MainAddPetActivity"
             android:exported="false" />
         <activity

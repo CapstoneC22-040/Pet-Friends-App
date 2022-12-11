@@ -126,8 +126,8 @@ class AddFoodFragment : Fragment() {
                         database = FirebaseDatabase.getInstance().getReference("PetsFoods")
                         val petFoodId = database.push().key.toString()
                         val petFood = PetFood(
-                            petFoodId,
                             uId,
+                            petFoodId,
                             cattegoryName,
                             foodName,
                             foodWeight,

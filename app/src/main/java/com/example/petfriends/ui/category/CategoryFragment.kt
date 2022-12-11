@@ -49,9 +49,19 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAddFood.setOnClickListener (
-           Navigation.createNavigateOnClickListener(R.id.action_navigation_category_to_addFoodFragment)
-        )
+
+        binding.apply {
+            binding.btnAddFood.setOnClickListener (
+                Navigation.createNavigateOnClickListener(R.id.action_navigation_category_to_addFoodFragment)
+            )
+
+            binding.btnAddShower.setOnClickListener(
+                Navigation.createNavigateOnClickListener(R.id.action_navigation_category_to_addShowerFragment)
+            )
+
+        }
+
+
         mAuth = Firebase.auth
 
         catImage =  ResourcesCompat.getDrawable(requireActivity().resources,R.drawable.cat_image,null) as Drawable
@@ -73,10 +83,10 @@ class CategoryFragment : Fragment() {
                     val typePet = snapshot.child("petJenis").value.toString()
                     val petBirthday = snapshot.child("petBirthday").value.toString()
 
-                    binding.petName.text = getString(R.string.pet_name_text, name)
-                    binding.petType.text = getString(R.string.pet_jenis_text,typePet)
-                    binding.petGender.text = getString(R.string.pet_gender_text,gender)
-                    binding.petBirthday.text = getString(R.string.pet_birthday_text, petBirthday)
+//                    binding.petName.text = getString(R.string.pet_name_text, name)
+//                    binding.petType.text = getString(R.string.pet_jenis_text,typePet)
+//                    binding.petGender.text = getString(R.string.pet_gender_text,gender)
+//                    binding.petBirthday.text = getString(R.string.pet_birthday_text, petBirthday)
 
                     Log.e("TAG","$name")
                     Toast.makeText(requireActivity(),"$name",Toast.LENGTH_SHORT).show()
@@ -98,7 +108,7 @@ class CategoryFragment : Fragment() {
              }
             }
             override fun onCancelled(error: DatabaseError) {
-                Log.d(BookmarkFragment.TAG, error.message)
+                Log.d(TAG, error.message)
             }
         })
 
@@ -107,6 +117,10 @@ class CategoryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "CategoryFragment"
     }
 
 }

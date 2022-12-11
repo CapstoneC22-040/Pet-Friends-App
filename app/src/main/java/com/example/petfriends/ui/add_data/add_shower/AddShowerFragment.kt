@@ -107,7 +107,6 @@ class AddShowerFragment : Fragment() {
                 val hours = tvHours.text.toString()
                 val day = tvDay.text.toString()
                 val date = tvDate.text.toString()
-                val urlPhoto = "asdasdasd"
                 val manageShower = edManageShower.text.toString()
                 val waterType = edWaterType.text.toString()
                 val uId = mAuth.currentUser?.uid.toString()
@@ -117,9 +116,11 @@ class AddShowerFragment : Fragment() {
                         edWaterType.error = getString(R.string.error_weight)
                     }
                     else -> {
+                        database = FirebaseDatabase.getInstance().getReference("PetsShower")
+                        val petShowerId = database.push().key.toString()
                         val petShower = PetShower(
+                            petShowerId,
                             uId,
-                            urlPhoto,
                             manageShower,
                             waterType,
                             hours,
@@ -127,14 +128,13 @@ class AddShowerFragment : Fragment() {
                             date,
                             createdAt
                         )
-                        database = FirebaseDatabase.getInstance().getReference("PetsFoods")
                         database.child(uId).push().setValue(petShower).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 showLoading(false)
                                 Log.w(TAG, "success")
                                 AlertDialog.Builder(context).apply{
                                     setTitle(getString(R.string.success))
-                                    setMessage(getString(R.string.success_add_food))
+                                    setMessage(getString(R.string.success_add_shower))
                                     setPositiveButton(getString(R.string.cont)){ _, _ ->
                                         show().dismiss()
                                     }
@@ -147,7 +147,7 @@ class AddShowerFragment : Fragment() {
                                 Log.w(TAG, "failure", task.exception)
                                 AlertDialog.Builder(context).apply{
                                     setTitle(getString(R.string.failed))
-                                    setMessage(getString(R.string.success_add_shower))
+                                    setMessage(getString(R.string.failed_add_shower))
                                     setPositiveButton(getString(R.string.cont)){ _, _ ->
                                         show().dismiss()
                                     }

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petfriends.data.local.model.ItemList
+import com.example.petfriends.data.local.model.PetFood
+import com.example.petfriends.data.local.model.PetFoodUpdate
 import com.example.petfriends.databinding.FragmentBookmarkBinding
 import com.example.petfriends.ui.adapter.ListItemAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -30,10 +32,13 @@ class BookmarkFragment : Fragment() {
 
     private lateinit var mAuth : FirebaseAuth
     private lateinit var database : DatabaseReference
+    private lateinit var uDatabase : DatabaseReference
+    private lateinit var dDatabase : DatabaseReference
 
     private lateinit var itemList: ArrayList<ItemList>
     private lateinit var listItemAdapter: ListItemAdapter
-//    private lateinit var listItemRecylerView: RecyclerView
+
+    private var key: String? = null
 
 
     override fun onCreateView(
@@ -53,33 +58,28 @@ class BookmarkFragment : Fragment() {
         itemList = arrayListOf<ItemList>()
 
         mAuth = Firebase.auth
-//
-//        listItemRecylerView = binding.rvListFoodItem
-//        listItemRecylerView.layoutManager = LinearLayoutManager(context)
-//        listItemRecylerView.setHasFixedSize(true)
-
 
         actionRecylerList()
 
         listItemFoods()
-//        listItemVaccine()
-//        CalendarUtils.selectedDate = LocalDate.now()
-//        setMonthView()
 
     }
 
     private fun actionRecylerList() {
-        listItemAdapter = ListItemAdapter()
+        listItemAdapter = ListItemAdapter(itemList)
         binding.rvListFoodItem.apply {
             adapter = listItemAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
+
         listItemAdapter.setOnItemClickCallback(object : ListItemAdapter.OnItemClickCallback{
             override fun onItemClicked(data: ItemList) {
                 showUpdateDialog(data)
             }
 
         })
+
+
     }
 
     private fun showUpdateDialog(data: ItemList) {
@@ -90,18 +90,66 @@ class BookmarkFragment : Fragment() {
         dialog.setView(viewInflater)
         dialog.setTitle(getString(R.string.update))
 
+        val user = mAuth.currentUser
+
+
         val edName = viewInflater.findViewById<EditText>(R.id.update_ed_food_name)
         val edWeight = viewInflater.findViewById<EditText>(R.id.update_ed_food_weight)
-        val etDate = viewInflater.findViewById<TextView>(R.id.tv_date)
+        val tvDate = viewInflater.findViewById<TextView>(R.id.tv_date)
 
-        edName.setText(data.name)
-        edWeight.setText(data.weight)
-        etDate.setText(data.date)
+        edName.setText(data.foodName)
+        edWeight.setText(data.foodWeight)
+        tvDate.setText(data.date)
 
-        dialog.setPositiveButton(getString(R.string.yes)){_, _ ->
+        dialog.setPositiveButton(getString(R.string.update)){_, _ ->
+            val foodName = edName.text.toString()
+            val foodWeight = edWeight.text.toString()
+            val date = tvDate.text.toString()
+            when {
+                foodName.isEmpty() -> {
+                    edName.error = getString(R.string.error_food_name)
 
+                }
+                foodWeight.isEmpty() -> {
+                    edWeight.error = getString(R.string.error_weight)
+                }
+                else -> {
+                    val petFoodUpdate = PetFood(
+                        foodName,
+                        foodWeight,
+                        date
+                    )
+
+                    val key = data.petFoodId
+                    val uId = data.uId
+
+                    val petFoodValue = petFoodUpdate.toMap()
+
+                    val childUpdate = hashMapOf<String, Any>(
+                        "/$uId/$key" to petFoodValue
+                    )
+
+                    uDatabase = FirebaseDatabase.getInstance().getReference("PetsFoods")
+
+                    uDatabase.updateChildren(childUpdate).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "Success")
+                            Toast.makeText(context, "Success update data", Toast.LENGTH_SHORT).show()
+                        }else {
+                            Log.d(TAG, "Failed")
+                        }
+                    }
+                }
+            }
         }
-        dialog.setNegativeButton(getString(R.string.no)){_, _ ->
+        dialog.setNegativeButton(getString(R.string.delete)){_, _ ->
+            dDatabase = FirebaseDatabase.getInstance()
+                .getReference("PetsFoods").child(user?.uid.toString()).child(data.petFoodId.toString())
+            dDatabase.removeValue()
+            Toast.makeText(context, "Success delete", Toast.LENGTH_SHORT).show()
+        }
+
+        dialog.setNeutralButton(getString(R.string.no)){_, _ ->
 
         }
 
@@ -115,18 +163,17 @@ class BookmarkFragment : Fragment() {
         database.child(user?.uid.toString()).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val key: String = snapshot.key.toString()
-                    database.child(key).addValueEventListener(object : ValueEventListener{
+                    key = snapshot.key.toString()
+                    database.child(key!!).addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
                                 for (itemSnapshot in snapshot.children) {
                                     val item = itemSnapshot.getValue(ItemList::class.java)
                                     itemList.add(item!!)
+                                    listItemAdapter.notifyDataSetChanged()
                                 }
-                                listItemAdapter.setAllData(itemList)
+
                                 Log.d(TAG, "Success")
-                                Toast.makeText(context, "Data found", Toast.LENGTH_SHORT).show()
-//                                listItemAdapter = ListItemAdapter(itemList)
 
                             }
                             else {

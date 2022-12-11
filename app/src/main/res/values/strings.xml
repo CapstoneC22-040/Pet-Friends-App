@@ -23,6 +23,12 @@
     <string name="failed">Failed</string>
     <string name="failed_register">Failed register account</string>
     <string name="cont">continue</string>
+    <string name="biodata">Biodata</string>
+
+    <string name="pet_name_text">Pet name:</string>
+    <string name="pet_jenis_text">Pet jenis:</string>
+    <string name="pet_gender_text">Pet gender:</string>
+    <string name="pet_birthday_text">Pet birthday:</string>
 
     <string name="success_sign_in">Success sign in</string>
     <string name="failed_sign_in">Failed sign in</string>
@@ -73,6 +79,8 @@
     <string name="edit_hours">Edit hours?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
     <string name="select_day">Select day</string>
     <string name="save_hours">Save hours?</string>
     <string name="empty_hours">Enter hours!</string>
