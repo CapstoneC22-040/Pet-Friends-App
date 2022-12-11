@@ -50,7 +50,8 @@
     <fragment
         android:id="@+id/addShowerFragment"
         android:name="com.example.petfriends.ui.add_data.add_shower.AddShowerFragment"
-        android:label="AddShowerFragment" >
+        android:label="AddShowerFragment"
+        tools:layout="@layout/fragment_add_medicine">
         <action
             android:id="@+id/action_addShowerFragment_to_navigation_category"
             app:destination="@id/navigation_category" />

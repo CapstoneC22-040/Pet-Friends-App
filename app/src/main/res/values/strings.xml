@@ -92,10 +92,8 @@
     <string name="failed_add_shower">Failed add shower!</string>
 
     <!--    Pet Medicine -->
-
     <string name="medicine_name">Enter medicine name</string>
     <string name="medicine_amount">Enter amount (g)</string>
-
     <string name="error_medicine_name">Medicine name can not be empty!</string>
     <string name="success_add_medicine">Success add medicine!</string>
     <string name="failed_add_medicine">Failed add medicine!</string>

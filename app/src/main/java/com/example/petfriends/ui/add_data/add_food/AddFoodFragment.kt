@@ -145,6 +145,8 @@ class AddFoodFragment : Fragment() {
                                     setMessage(getString(R.string.success_add_food))
                                     setPositiveButton(getString(R.string.cont)){_, _ ->
                                         show().dismiss()
+                                        edFoodName.setText("")
+                                        edFoodWeight.setText("")
                                     }
                                     create()
                                     show()

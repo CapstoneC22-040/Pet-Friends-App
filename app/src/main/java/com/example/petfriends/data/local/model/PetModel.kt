@@ -50,13 +50,14 @@ data class PetFood(
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
+            "uId" to uId,
             "petFoodId" to petFoodId,
             "categoryName" to categoryName,
             "foodName" to foodName,
             "foodWeight" to foodWeight,
             "hours" to hours,
             "day" to day,
-            "date" to hours,
+            "date" to date,
             "createdAt" to createdAt
         )
     }
@@ -67,9 +68,6 @@ data class PetFoodUpdate(
     var foodWeight: String? = null,
     val date: String? = null,
 )
-
-
-
 
 data class PetMedicine(
     val petMedicineId: String,

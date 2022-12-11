@@ -18,6 +18,7 @@ import com.example.petfriends.data.local.model.PetFood
 import com.example.petfriends.data.local.model.PetFoodUpdate
 import com.example.petfriends.databinding.FragmentBookmarkBinding
 import com.example.petfriends.ui.adapter.ListItemAdapter
+import com.example.petfriends.utils.DateHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -118,15 +119,20 @@ class BookmarkFragment : Fragment() {
                     edWeight.error = getString(R.string.error_weight)
                 }
                 else -> {
+                    val key = data.petFoodId
+                    val uId = mAuth.currentUser?.uid.toString()
+
                     val petFoodUpdate = PetFood(
+                        uId,
+                        key,
+                        categoryName = "Food",
                         foodName,
                         foodWeight,
-                        date
+                        hours = DateHelper.getCurrentHours(),
+                        day = DateHelper.getCurrentDay(),
+                        date,
+                        createdAt = DateHelper.getCurrentTimeStamp()
                     )
-
-
-                    val key = data.petFoodId
-                    val uId = data.uId
 
                     val petFoodValue = petFoodUpdate.toMap()
 
@@ -177,13 +183,10 @@ class BookmarkFragment : Fragment() {
                                     itemList.add(item!!)
                                     listItemAdapter.notifyDataSetChanged()
                                 }
-
                                 Log.d(TAG, "Success")
-
                             }
                             else {
                                 Log.d(TAG, "Failed")
-                                Toast.makeText(context, "Data not found!, add activity first!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         override fun onCancelled(error: DatabaseError) {
@@ -193,7 +196,6 @@ class BookmarkFragment : Fragment() {
                 }
                 else {
                     Log.d(TAG, "Failed")
-                    Toast.makeText(context, "Data not found", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onCancelled(error: DatabaseError) {
